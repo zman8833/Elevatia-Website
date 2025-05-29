@@ -21,7 +21,7 @@ export default function AboutPage() {
               <h2 className="text-2xl font-semibold mb-4 gradient-text">Our Vision</h2>
               <p className="text-gray-600 leading-relaxed">
                 We envision a world where everyone has access to cutting-edge tools that make their wellness journey 
-                more efficient and rewarding. By combining AI technology with personalized guidance, we're creating 
+                more efficient and rewarding. By combining AI technology with personalized guidance, we&apos;re creating 
                 a platform that supports the entire wellness community.
               </p>
             </section>

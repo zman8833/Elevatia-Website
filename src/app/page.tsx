@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 // import BackgroundDesign from '@/components/BackgroundDesign';
 
 export default function Home() {
@@ -75,23 +76,29 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="screenshot-container backdrop-blur-sm bg-white/50 p-4 rounded-lg">
-              <img 
+              <Image 
                 src="/screenshots/IMG_3389.jpg" 
                 alt="ElevatiaRN App Screenshot 1" 
+                width={400}
+                height={800}
                 className="w-full h-auto object-cover rounded-lg"
               />
             </div>
             <div className="screenshot-container backdrop-blur-sm bg-white/50 p-4 rounded-lg">
-              <img 
+              <Image 
                 src="/screenshots/IMG_3390.jpg" 
                 alt="ElevatiaRN App Screenshot 2" 
+                width={400}
+                height={800}
                 className="w-full h-auto object-cover rounded-lg"
               />
             </div>
             <div className="screenshot-container backdrop-blur-sm bg-white/50 p-4 rounded-lg">
-              <img 
+              <Image 
                 src="/screenshots/IMG_3391.jpg" 
                 alt="ElevatiaRN App Screenshot 3" 
+                width={400}
+                height={800}
                 className="w-full h-auto object-cover rounded-lg"
               />
             </div>
