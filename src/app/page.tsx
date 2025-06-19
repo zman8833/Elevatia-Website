@@ -42,6 +42,29 @@ export default function Home() {
         </div>
       </section>
 
+      {/* App Preview Section */}
+      <section className="section-padding relative">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-16 gradient-text">
+              Experience Elevatia
+            </h2>
+            <div className="flex justify-center">
+              <div className="max-w-3xl">
+                <Image 
+                  src="/app-preview.png" 
+                  alt="Elevatia App Preview - Multiple screens showing wellness tracking features" 
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto object-contain rounded-lg shadow-lg"
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Features Section */}
       <section className="section-padding relative">
         <div className="container">
@@ -64,44 +87,6 @@ export default function Home() {
             <div className="card backdrop-blur-sm bg-white/50">
               <h3 className="text-xl font-semibold mb-4">Social Features</h3>
               <p className="text-gray-600">Connect with friends, share progress, and stay motivated together.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* App Showcase Section */}
-      <section className="section-padding relative">
-        <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-16 gradient-text">
-            Experience Elevatia
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="screenshot-container backdrop-blur-sm bg-white/50 p-4 rounded-lg">
-              <Image 
-                src="/screenshots/IMG_3389.jpg" 
-                alt="ElevatiaRN App Screenshot 1" 
-                width={400}
-                height={800}
-                className="w-full h-auto object-cover rounded-lg"
-              />
-            </div>
-            <div className="screenshot-container backdrop-blur-sm bg-white/50 p-4 rounded-lg">
-              <Image 
-                src="/screenshots/IMG_3390.jpg" 
-                alt="ElevatiaRN App Screenshot 2" 
-                width={400}
-                height={800}
-                className="w-full h-auto object-cover rounded-lg"
-              />
-            </div>
-            <div className="screenshot-container backdrop-blur-sm bg-white/50 p-4 rounded-lg">
-              <Image 
-                src="/screenshots/IMG_3391.jpg" 
-                alt="ElevatiaRN App Screenshot 3" 
-                width={400}
-                height={800}
-                className="w-full h-auto object-cover rounded-lg"
-              />
             </div>
           </div>
         </div>
