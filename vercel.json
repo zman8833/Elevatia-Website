@@ -14,7 +14,20 @@
       ]
     },
     {
-      "source": "/favicon-*.png",
+      "source": "/favicon-16x16.png",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        },
+        {
+          "key": "Content-Type",
+          "value": "image/png"
+        }
+      ]
+    },
+    {
+      "source": "/favicon-32x32.png",
       "headers": [
         {
           "key": "Cache-Control",
