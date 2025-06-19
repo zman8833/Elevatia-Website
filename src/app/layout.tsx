@@ -10,12 +10,6 @@ export const metadata: Metadata = {
   title: "Elevatia - Your AI-Powered Wellness Companion",
   description: "Elevatia helps you track and improve various aspects of your life through structured paths. Using AI and gamification, we provide personalized guidance to help you achieve your wellness goals.",
   icons: {
-    icon: [
-      { url: '/favicon-32x32.png?v=3', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png?v=3', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon.ico?v=3', sizes: '32x32' },
-    ],
-    shortcut: '/favicon.ico?v=3',
     apple: '/apple-icon.png',
   },
   manifest: '/site.webmanifest',
@@ -28,12 +22,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <link rel="icon" href="/favicon.ico?v=4" />
-        <link rel="icon" href="/favicon-16x16.png?v=4" sizes="16x16" type="image/png" />
-        <link rel="icon" href="/favicon-32x32.png?v=4" sizes="32x32" type="image/png" />
-        <link rel="shortcut icon" href="/favicon.ico?v=4" />
-      </head>
+
       <body className={inter.className}>
         <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="container mx-auto px-4">
