@@ -11,10 +11,11 @@ export const metadata: Metadata = {
   description: "Elevatia helps you track and improve various aspects of your life through structured paths. Using AI and gamification, we provide personalized guidance to help you achieve your wellness goals.",
   icons: {
     icon: [
-      { url: '/elevatia-logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/elevatia-logo.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon.ico', sizes: '32x32' },
     ],
-    shortcut: '/elevatia-logo.png',
+    shortcut: '/favicon.ico',
     apple: '/apple-icon.png',
   },
   manifest: '/site.webmanifest',
@@ -28,8 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/elevatia-logo.png" type="image/png" />
-        <link rel="shortcut icon" href="/elevatia-logo.png" type="image/png" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon-16x16.png" sizes="16x16" type="image/png" />
+        <link rel="icon" href="/favicon-32x32.png" sizes="32x32" type="image/png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={inter.className}>
         <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
