@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 export default function Home() {
   const [showPopup, setShowPopup] = useState(false);
+  // Favicon update - v3
 
   return (
     <div
