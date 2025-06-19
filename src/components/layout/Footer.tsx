@@ -35,23 +35,23 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Services */}
+          {/* Legal */}
           <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
+            <h4 className="text-lg font-semibold mb-4">Legal</h4>
             <ul className="space-y-2">
               <li>
-                <Link href="/services/consulting" className="text-gray-400 hover:text-white">
-                  Consulting
+                <Link href="/privacy" className="text-gray-400 hover:text-white">
+                  Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/services/development" className="text-gray-400 hover:text-white">
-                  Development
+                <Link href="#" className="text-gray-400 hover:text-white">
+                  Terms of Service
                 </Link>
               </li>
               <li>
-                <Link href="/services/support" className="text-gray-400 hover:text-white">
-                  Support
+                <Link href="#" className="text-gray-400 hover:text-white">
+                  Cookie Policy
                 </Link>
               </li>
             </ul>
