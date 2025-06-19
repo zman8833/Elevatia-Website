@@ -43,12 +43,9 @@ export default function Home() {
       </section>
 
       {/* App Preview Section */}
-      <section className="section-padding relative">
+      <section className="py-12 relative">
         <div className="container">
           <div className="max-w-7xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-16 gradient-text">
-              Experience Elevatia
-            </h2>
             <div className="flex justify-center">
               <div className="w-full max-w-6xl">
                 <Image 
