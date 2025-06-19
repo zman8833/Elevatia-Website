@@ -45,18 +45,18 @@ export default function Home() {
       {/* App Preview Section */}
       <section className="section-padding relative">
         <div className="container">
-          <div className="max-w-4xl mx-auto text-center">
+          <div className="max-w-7xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-16 gradient-text">
               Experience Elevatia
             </h2>
             <div className="flex justify-center">
-              <div className="max-w-3xl">
+              <div className="w-full max-w-6xl">
                 <Image 
                   src="/app-preview.png" 
                   alt="Elevatia App Preview - Multiple screens showing wellness tracking features" 
-                  width={1200}
-                  height={800}
-                  className="w-full h-auto object-contain rounded-lg shadow-lg"
+                  width={1400}
+                  height={900}
+                  className="w-full h-auto object-contain rounded-2xl shadow-2xl"
                   priority
                 />
               </div>
