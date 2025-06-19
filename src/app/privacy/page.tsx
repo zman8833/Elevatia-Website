@@ -120,7 +120,7 @@ export default function PrivacyPolicyPage() {
                   <li>Disconnect third-party health data integrations</li>
                 </ul>
                 <p className="text-gray-600 mt-4">
-                  To exercise these rights, please contact us at support@elevatia.app.
+                  To exercise these rights, please contact us at admin@elevatia.org.
                 </p>
               </section>
 
@@ -159,7 +159,7 @@ export default function PrivacyPolicyPage() {
                   If you have any questions about this Privacy Policy or our data practices, please contact us at:
                 </p>
                 <ul className="list-disc list-inside text-gray-600 space-y-1">
-                  <li>Email: support@elevatia.app</li>
+                  <li>Email: admin@elevatia.org</li>
                   <li>Website: https://getelevatia.com</li>
                 </ul>
               </section>
