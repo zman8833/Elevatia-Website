@@ -14,7 +14,7 @@ export default function PrivacyPolicyPage() {
               <section className="mb-8">
                 <h2 className="text-2xl font-semibold mb-4 gradient-text">Introduction</h2>
                 <p className="text-gray-600 leading-relaxed">
-                  Elevatia ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.
+                  Elevatia (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our mobile application.
                 </p>
               </section>
 
@@ -52,7 +52,7 @@ export default function PrivacyPolicyPage() {
                   <li><strong>Google Fit</strong>: Activity and health data from Android devices</li>
                 </ul>
                 <p className="text-gray-600">
-                  You can revoke access to any third-party service at any time through your device settings or the respective service's privacy controls.
+                  You can revoke access to any third-party service at any time through your device settings or the respective service&apos;s privacy controls.
                 </p>
               </section>
 
@@ -132,7 +132,7 @@ export default function PrivacyPolicyPage() {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-2xl font-semibold mb-4 gradient-text">Children's Privacy</h2>
+                <h2 className="text-2xl font-semibold mb-4 gradient-text">Children&apos;s Privacy</h2>
                 <p className="text-gray-600">
                   Our Service does not address anyone under the age of 13. We do not knowingly collect personally identifiable information from children under 13. If we discover that a child under 13 has provided us with personal information, we will delete it immediately.
                 </p>
