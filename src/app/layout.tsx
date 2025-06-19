@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   title: "Elevatia - Your AI-Powered Wellness Companion",
   description: "Elevatia helps you track and improve various aspects of your life through structured paths. Using AI and gamification, we provide personalized guidance to help you achieve your wellness goals.",
   icons: {
+    icon: '/icon.png',
     apple: '/apple-icon.png',
   },
   manifest: '/site.webmanifest',
