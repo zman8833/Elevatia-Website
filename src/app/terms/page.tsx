@@ -12,7 +12,7 @@ export default function TermsOfService() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Acceptance of Terms</h2>
               <p className="text-gray-700 mb-4">
-                By downloading, installing, or using the Elevatia mobile application ("App"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the App.
+                By downloading, installing, or using the Elevatia mobile application (&ldquo;App&rdquo;), you agree to be bound by these Terms of Service (&ldquo;Terms&rdquo;). If you do not agree to these Terms, do not use the App.
               </p>
             </section>
 
@@ -44,7 +44,7 @@ export default function TermsOfService() {
               <ul className="list-disc pl-6 text-gray-700 mb-4">
                 <li>Use the App for any illegal or unauthorized purpose</li>
                 <li>Attempt to gain unauthorized access to the App or its systems</li>
-                <li>Interfere with or disrupt the App's functionality</li>
+                <li>Interfere with or disrupt the App&apos;s functionality</li>
                 <li>Upload or transmit harmful, offensive, or inappropriate content</li>
                 <li>Violate any applicable laws or regulations</li>
               </ul>
@@ -98,7 +98,7 @@ export default function TermsOfService() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">11. Disclaimer of Warranties</h2>
               <p className="text-gray-700 mb-4">
-                The App is provided "as is" and "as available" without warranties of any kind, either express or implied. We do not warrant that the App will be uninterrupted, error-free, or completely secure.
+                The App is provided &ldquo;as is&rdquo; and &ldquo;as available&rdquo; without warranties of any kind, either express or implied. We do not warrant that the App will be uninterrupted, error-free, or completely secure.
               </p>
             </section>
 
