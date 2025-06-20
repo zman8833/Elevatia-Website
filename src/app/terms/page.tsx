@@ -84,7 +84,7 @@ export default function TermsOfService() {
             <section className="mb-8">
               <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Subscription and Payments</h2>
               <p className="text-gray-700 mb-4">
-                Some features of the App may require a paid subscription. Subscription fees are charged in advance and are non-refundable except as required by law. You may cancel your subscription at any time through your device's app store settings.
+                Some features of the App may require a paid subscription. Subscription fees are charged in advance and are non-refundable except as required by law. You may cancel your subscription at any time through your device&apos;s app store settings.
               </p>
             </section>
 
