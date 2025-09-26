@@ -57,7 +57,7 @@ export default function VerifyEmailPage() {
         </div>
 
         <div className="text-sm text-gray-500 space-y-2">
-          <p>If the app doesn't open automatically:</p>
+          <p>If the app doesn&apos;t open automatically:</p>
           <a 
             href="https://apps.apple.com/app/elevatia/id6670204991"
             className="inline-block bg-black text-white px-6 py-2 rounded-lg font-medium hover:bg-gray-800 transition-colors"
@@ -69,3 +69,4 @@ export default function VerifyEmailPage() {
     </div>
   );
 }
+
