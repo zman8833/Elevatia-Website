@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
-import Logo from '@/components/Logo';
+import Image from 'next/image';
 
 export default function VerifyEmailPage() {
   const searchParams = useSearchParams();
@@ -40,7 +40,14 @@ export default function VerifyEmailPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full text-center">
         <div className="mb-6">
-          <Logo className="mx-auto mb-4" width={80} height={80} />
+          <Image 
+            src="/elevatia-logo.png" 
+            alt="Elevatia Logo" 
+            width={80}
+            height={80}
+            className="mx-auto mb-4"
+            priority
+          />
           <h1 className="text-2xl font-bold text-gray-900 mb-2">
             Opening Elevatia...
           </h1>
