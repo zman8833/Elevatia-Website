@@ -1,10 +1,15 @@
 {
-  "name": "Elevatia",
+  "name": "Elevatia - Your AI-Powered Wellness Companion",
   "short_name": "Elevatia",
   "description": "Your AI-Powered Wellness Companion",
   "icons": [
     {
-      "src": "/elevatia-logo.png",
+      "src": "/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon.png",
       "sizes": "192x192",
       "type": "image/png"
     },

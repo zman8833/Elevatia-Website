@@ -1,76 +1,66 @@
-'use client';
-
-import { useState } from 'react';
+import Image from 'next/image';
 
 export default function JoinPage() {
-  const [showPopup, setShowPopup] = useState(false);
-
   return (
-    <div className="min-h-screen">
-      <section className="section-padding">
-        <div className="container">
-          <h1 className="text-5xl md:text-6xl font-bold text-center mb-12 gradient-text">
-            Join Elevatia
+    <div className="min-h-screen bg-[#FDFAF6] py-24">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl font-bold mb-8 gradient-text">
+            Join the Elevatia Community
           </h1>
-
-          <div className="max-w-3xl mx-auto">
-            <div className="card mb-8">
-              <h2 className="text-2xl font-semibold mb-6 gradient-text">Why Join Elevatia?</h2>
-              <ul className="space-y-4 text-gray-600">
-                <li className="flex items-start">
-                  <span className="text-gray-900 mr-2">•</span>
-                  <span>Access to personalized wellness paths and tracking tools</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 mr-2">•</span>
-                  <span>AI-powered guidance and recommendations</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 mr-2">•</span>
-                  <span>Progress tracking and achievement milestones</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-gray-900 mr-2">•</span>
-                  <span>Regular updates and new features based on user feedback</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="card">
-              <h2 className="text-2xl font-semibold mb-6 gradient-text">Get Started</h2>
-              <p className="text-gray-600 mb-6">
-                Ready to elevate your wellness journey? Download our app and join the community today.
-              </p>
-              <div className="flex justify-center">
-                <button 
-                  onClick={() => setShowPopup(true)}
-                  className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
-                >
-                  Download for iOS
-                </button>
+          <p className="text-xl text-gray-600 mb-12 leading-relaxed">
+            Ready to transform your wellness journey? Download Elevatia today and start your path to better health, 
+            mindfulness, and personal growth.
+          </p>
+          
+          <div className="mb-16">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              <div className="card">
+                <h3 className="text-xl font-semibold mb-4 gradient-text">Track Your Progress</h3>
+                <p className="text-gray-600">
+                  Monitor your wellness journey with detailed analytics and celebrate your achievements.
+                </p>
+              </div>
+              <div className="card">
+                <h3 className="text-xl font-semibold mb-4 gradient-text">AI-Powered Insights</h3>
+                <p className="text-gray-600">
+                  Get personalized recommendations powered by advanced AI to optimize your wellness routine.
+                </p>
+              </div>
+              <div className="card">
+                <h3 className="text-xl font-semibold mb-4 gradient-text">Community Support</h3>
+                <p className="text-gray-600">
+                  Connect with like-minded individuals and share your progress in our supportive community.
+                </p>
               </div>
             </div>
+            
+            <div className="flex justify-center">
+              <a 
+                href="https://apps.apple.com/us/app/elevatia/id6747624957"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block hover:scale-105 transition-transform duration-200 hover:opacity-90"
+              >
+                <Image
+                  src="/app-store-badge-official.svg"
+                  alt="Download on the App Store"
+                  width={160}
+                  height={53}
+                  className="h-12 w-auto"
+                  priority
+                />
+              </a>
+            </div>
           </div>
-        </div>
-      </section>
-
-      {/* Coming Soon Popup */}
-      {showPopup && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-8 rounded-lg max-w-md mx-4">
-            <h3 className="text-2xl font-semibold mb-4 gradient-text">Coming Soon!</h3>
-            <p className="text-gray-600 mb-6">
-              We&apos;re working hard to bring Elevatia to iOS. Stay tuned for updates!
+          
+          <div className="text-center">
+            <p className="text-gray-500 text-sm">
+              Available on iOS. Coming soon to Android.
             </p>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="w-full inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              Close
-            </button>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 } 

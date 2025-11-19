@@ -7,13 +7,20 @@ import Logo from "@/components/Logo";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Elevatia - Your AI-Powered Wellness Companion",
+  title: {
+    default: "Elevatia - Your AI-Powered Wellness Companion",
+    template: "%s | Elevatia"
+  },
   description: "Elevatia helps you track and improve various aspects of your life through structured paths. Using AI and gamification, we provide personalized guidance to help you achieve your wellness goals.",
   icons: {
-    icon: '/icon.png',
+    icon: [
+      { url: '/favicon.png', sizes: '32x32', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' }
+    ],
     apple: '/apple-icon.png',
   },
   manifest: '/site.webmanifest',
+  metadataBase: new URL('https://getelevatia.com'),
 };
 
 export default function RootLayout({
@@ -23,7 +30,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-
       <body className={inter.className}>
         <nav className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
           <div className="container mx-auto px-4">

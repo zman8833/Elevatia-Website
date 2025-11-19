@@ -1,4 +1,6 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Elevatia Website
+
+This is the official website for Elevatia - Your AI-Powered Wellness Companion.
 
 ## Getting Started
 
@@ -10,27 +12,89 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is deployed on Vercel. To deploy:
 
-## Learn More
+```bash
+vercel --prod
+```
 
-To learn more about Next.js, take a look at the following resources:
+For force deployment (useful for favicon updates):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+vercel --prod --force
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Troubleshooting
 
-## Deploy on Vercel
+### Favicon Not Showing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+If the favicon is not displaying properly after deployment:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. **Browser Cache**: Clear your browser cache or do a hard refresh:
+   - Chrome/Firefox: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
+   - Safari: `Cmd+Option+R`
+
+2. **Force Deployment**: Use the force flag when deploying:
+   ```bash
+   vercel --prod --force
+   ```
+
+3. **Check Multiple Browsers**: Test in different browsers to confirm it's a caching issue
+
+4. **Incognito/Private Mode**: Test in incognito/private browsing mode
+
+### Responsive Layout Issues
+
+The website is optimized for:
+- Mobile: 320px and up
+- Tablet: 768px and up  
+- Laptop: 1024px and up
+- Desktop: 1280px and up
+
+If you notice layout issues on specific screen sizes, check the Tailwind CSS classes in the components.
+
+## Tech Stack
+
+- **Framework**: Next.js 15.3.2
+- **Styling**: Tailwind CSS
+- **Deployment**: Vercel
+- **Icons**: Custom favicon set (ICO, PNG, Apple Touch Icon)
+
+## File Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with metadata
+│   ├── page.tsx            # Homepage
+│   ├── globals.css         # Global styles
+│   └── [other pages]/
+├── components/
+│   ├── layout/
+│   │   ├── Header.tsx
+│   │   └── Footer.tsx
+│   └── Logo.tsx
+public/
+├── favicon.ico             # Main favicon
+├── favicon.png             # PNG version for better compatibility
+├── apple-icon.png          # Apple touch icon
+├── site.webmanifest        # Web app manifest
+└── [other assets]/
+```
+
+## Contributing
+
+1. Make your changes
+2. Test locally with `npm run dev`
+3. Build and test with `npm run build`
+4. Deploy with `vercel --prod`
+
+## License
+
+All rights reserved - Elevatia, Co.

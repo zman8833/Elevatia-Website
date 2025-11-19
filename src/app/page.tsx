@@ -1,59 +1,60 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 // import BackgroundDesign from '@/components/BackgroundDesign';
+import Link from 'next/link';
 
 export default function Home() {
-  const [showPopup, setShowPopup] = useState(false);
   // Favicon update - v3
 
   return (
-    <div
-      className="min-h-screen relative"
-      style={{
-        background: "#FDFAF6 url('data:image/svg+xml;utf8,%3Csvg%20width%3D%221440%22%20height%3D%22900%22%20viewBox%3D%220%200%201440%20900%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cg%20opacity%3D%220.7%22%3E%3Cpath%20d%3D%22M0%2C250%20Q360%2C150%20720%2C250%20T1440%2C250%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C240%20Q360%2C140%20720%2C260%20T1440%2C240%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C230%20Q360%2C130%20720%2C270%20T1440%2C230%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C220%20Q360%2C120%20720%2C280%20T1440%2C220%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C210%20Q360%2C110%20720%2C290%20T1440%2C210%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C200%20Q360%2C100%20720%2C300%20T1440%2C200%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C190%20Q360%2C90%20720%2C310%20T1440%2C190%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C180%20Q360%2C80%20720%2C320%20T1440%2C180%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C170%20Q360%2C70%20720%2C330%20T1440%2C170%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3Cpath%20d%3D%22M0%2C160%20Q360%2C60%20720%2C340%20T1440%2C160%22%20stroke%3D%22%23CD7F32%22%20stroke-width%3D%221%22/%3E%3C/g%3E%3C/svg%3E') no-repeat center top",
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}
-    >
+    <div className="min-h-screen relative bg-[#FDFAF6]">
       {/* <BackgroundDesign /> */}
       
       {/* Hero Section */}
       <section className="section-padding relative">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-bold mb-8 gradient-text">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 sm:mb-8 gradient-text">
               Your AI-Powered Wellness Companion
             </h1>
-            <p className="text-xl text-gray-600 mb-12 leading-relaxed">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 leading-relaxed max-w-3xl mx-auto">
               Elevatia helps you track and improve various aspects of your life through structured paths. 
               Using AI and gamification, we provide personalized guidance to help you achieve your wellness goals.
             </p>
             <div className="flex justify-center">
-              <button 
-                onClick={() => setShowPopup(true)}
-                className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors backdrop-blur-sm"
+              <a 
+                href="https://apps.apple.com/us/app/elevatia/id6747624957"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block hover:scale-105 transition-transform duration-200 hover:opacity-90"
               >
-                Download for iOS
-              </button>
+                <Image
+                  src="/app-store-badge-official.svg"
+                  alt="Download on the App Store"
+                  width={160}
+                  height={53}
+                  className="h-12 w-auto"
+                  priority
+                />
+              </a>
             </div>
           </div>
         </div>
       </section>
 
       {/* App Preview Section */}
-      <section className="py-12 relative">
+      <section className="py-8 sm:py-12 relative">
         <div className="container">
-          <div className="max-w-7xl mx-auto text-center">
+          <div className="max-w-6xl mx-auto text-center">
             <div className="flex justify-center">
-              <div className="w-full max-w-6xl">
+              <div className="w-full max-w-5xl">
                 <Image 
                   src="/app-preview.png" 
-                  alt="Elevatia App Preview - Multiple screens showing wellness tracking features" 
-                  width={1400}
-                  height={900}
-                  className="w-full h-auto object-contain rounded-2xl shadow-2xl"
+                  alt="Elevatia App Preview" 
+                  width={1200} 
+                  height={800}
+                  className="w-full h-auto rounded-2xl shadow-2xl"
                   priority
                 />
               </div>
@@ -65,25 +66,35 @@ export default function Home() {
       {/* Features Section */}
       <section className="section-padding relative">
         <div className="container">
-          <h2 className="text-3xl font-bold text-center mb-16 gradient-text">
-            Core Features
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div className="card backdrop-blur-sm bg-white/50">
-              <h3 className="text-xl font-semibold mb-4">Path Assist System</h3>
-              <p className="text-gray-600">Track nutrition, fitness, mental wellness, and sleep through personalized paths.</p>
-            </div>
-            <div className="card backdrop-blur-sm bg-white/50">
-              <h3 className="text-xl font-semibold mb-4">Progress Tracking</h3>
-              <p className="text-gray-600">Monitor your journey with weekly tracking, streaks, and achievement milestones.</p>
-            </div>
-            <div className="card backdrop-blur-sm bg-white/50">
-              <h3 className="text-xl font-semibold mb-4">Personalization</h3>
-              <p className="text-gray-600">Get tailored guidance based on your goals and adaptive difficulty levels.</p>
-            </div>
-            <div className="card backdrop-blur-sm bg-white/50">
-              <h3 className="text-xl font-semibold mb-4">Social Features</h3>
-              <p className="text-gray-600">Connect with friends, share progress, and stay motivated together.</p>
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 sm:mb-16 gradient-text">
+              Why Choose Elevatia?
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
+              <div className="card">
+                <h3 className="text-xl font-semibold mb-4 gradient-text">AI-Powered Guidance</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Get personalized recommendations and insights powered by advanced AI to help you make better wellness decisions.
+                </p>
+              </div>
+              <div className="card">
+                <h3 className="text-xl font-semibold mb-4 gradient-text">Structured Paths</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Follow carefully designed wellness paths that guide you step-by-step toward your health and lifestyle goals.
+                </p>
+              </div>
+              <div className="card">
+                <h3 className="text-xl font-semibold mb-4 gradient-text">Progress Tracking</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Monitor your journey with detailed analytics and celebrate your achievements with our gamification features.
+                </p>
+              </div>
+              <div className="card">
+                <h3 className="text-xl font-semibold mb-4 gradient-text">Crucible</h3>
+                <p className="text-gray-600 leading-relaxed">
+                  Compete with friends, share progress, and stay motivated together.
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -92,84 +103,50 @@ export default function Home() {
       {/* CTA Section */}
       <section className="section-padding relative">
         <div className="container">
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-8 gradient-text">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8 gradient-text">
               Start Your Wellness Journey Today
             </h2>
-            <p className="text-xl text-gray-600 mb-12">
+            <p className="text-lg sm:text-xl text-gray-600 mb-8 sm:mb-12 leading-relaxed">
               Join thousands of users who are already improving their lives with Elevatia.
             </p>
             <div className="flex justify-center">
-              <button 
-                onClick={() => setShowPopup(true)}
-                className="inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors backdrop-blur-sm"
+              <a 
+                href="https://apps.apple.com/us/app/elevatia/id6747624957"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block hover:scale-105 transition-transform duration-200 hover:opacity-90"
               >
-                Get Started
-              </button>
+                <Image
+                  src="/app-store-badge-official.svg"
+                  alt="Download on the App Store"
+                  width={160}
+                  height={53}
+                  className="h-12 w-auto"
+                />
+              </a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Coming Soon Popup */}
-      {showPopup && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white/90 p-8 rounded-lg max-w-md mx-4 backdrop-blur-sm">
-            <h3 className="text-2xl font-semibold mb-4 gradient-text">Coming Soon!</h3>
-            <p className="text-gray-600 mb-6">
-              We&apos;re working hard to bring Elevatia to iOS. Stay tuned for updates!
-            </p>
-            <button
-              onClick={() => setShowPopup(false)}
-              className="w-full inline-flex items-center justify-center px-8 py-3 text-sm font-medium text-white bg-gray-900 rounded-full hover:bg-gray-800 transition-colors"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
       {/* Footer */}
-      <footer className="bg-gray-900/95 text-gray-300 py-12 backdrop-blur-sm">
+      <footer className="bg-gray-50 py-8 sm:py-12">
         <div className="container">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div>
-              <h3 className="text-white text-lg font-semibold mb-4">Elevatia, Co.</h3>
-              <p className="text-sm">
-                Your AI-Powered Wellness Companion
-              </p>
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-semibold mb-4">Company</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-semibold mb-4">Legal</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="/privacy" className="hover:text-white transition-colors">Privacy Policy</a></li>
-                <li><a href="/terms" className="hover:text-white transition-colors">Terms of Service</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Cookie Policy</a></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-white text-sm font-semibold mb-4">Connect</h4>
-              <ul className="space-y-2 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">LinkedIn</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Instagram</a></li>
-              </ul>
-            </div>
-          </div>
-          <div className="border-t border-gray-800 mt-8 pt-8 text-sm text-center">
-            <p>&copy; {new Date().getFullYear()} Elevatia, Co. All rights reserved.</p>
-            <div className="mt-4 flex justify-center">
-              <svg width="18" height="28" viewBox="0 0 18 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="7" y="0" width="4" height="20" fill="white"/>
-                <rect x="0" y="8" width="18" height="4" fill="white"/>
-                <rect x="7" y="20" width="4" height="8" fill="white"/>
-              </svg>
+          <div className="max-w-6xl mx-auto text-center">
+            <p className="text-gray-600 mb-4">
+              © 2024 Elevatia. All rights reserved.
+            </p>
+            <div className="flex justify-center space-x-6">
+              <Link href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors">
+                Privacy Policy
+              </Link>
+              <Link href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">
+                Terms of Service
+              </Link>
+              <Link href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors">
+                Contact
+              </Link>
             </div>
           </div>
         </div>
