@@ -411,6 +411,9 @@ export default function Home() {
               <Link href="/terms" className="text-gray-600 hover:text-gray-900 transition-colors">
                 Terms of Service
               </Link>
+              <Link href="/partners" className="text-gray-600 hover:text-gray-900 transition-colors">
+                Partners
+              </Link>
               <Link href="/contact" className="text-gray-600 hover:text-gray-900 transition-colors">
                 Contact
               </Link>
