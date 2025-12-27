@@ -1,6 +1,6 @@
 export default function AboutPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-16">
       <section className="section-padding">
         <div className="container">
           <h1 className="text-5xl md:text-6xl font-bold text-center mb-12 gradient-text">

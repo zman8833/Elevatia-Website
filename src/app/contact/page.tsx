@@ -1,6 +1,6 @@
 export default function ContactPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-16">
       <section className="section-padding">
         <div className="container">
           <h1 className="text-5xl md:text-6xl font-bold text-center mb-12 gradient-text">
@@ -67,7 +67,7 @@ export default function ContactPage() {
               <h2 className="text-2xl font-semibold mb-6 gradient-text">Other Ways to Reach Us</h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  <strong>Email:</strong> admin@elevatia.org
+                  <strong>Email:</strong> info@getelevatia.com
                 </p>
                 <p>
                   <strong>Support Hours:</strong> Monday - Friday, 9:00 AM - 5:00 PM EST
