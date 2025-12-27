@@ -1,9 +1,21 @@
 {
+  "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
-  "/join/page": "/join",
-  "/terms/page": "/terms",
   "/about/page": "/about",
+  "/admin/partners/page": "/admin/partners",
+  "/api/partners/auth/route": "/api/partners/auth",
+  "/api/partners/codes/route": "/api/partners/codes",
+  "/api/partners/organizations/route": "/api/partners/organizations",
+  "/api/partners/paths/route": "/api/partners/paths",
+  "/api/partners/stats/route": "/api/partners/stats",
+  "/api/partners/users/route": "/api/partners/users",
+  "/contact/page": "/contact",
+  "/join/page": "/join",
   "/page": "/",
+  "/partners/dashboard/[slug]/page": "/partners/dashboard/[slug]",
+  "/partners/login/page": "/partners/login",
+  "/partners/page": "/partners",
   "/privacy/page": "/privacy",
-  "/contact/page": "/contact"
+  "/terms/page": "/terms",
+  "/verify-email/page": "/verify-email"
 }

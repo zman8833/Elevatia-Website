@@ -5,6 +5,11 @@ import {
   User, 
   onAuthStateChanged, 
   signInWithEmailAndPassword,
+  signInWithPopup,
+  signInWithPhoneNumber,
+  OAuthProvider,
+  RecaptchaVerifier,
+  ConfirmationResult,
   signOut as firebaseSignOut 
 } from 'firebase/auth';
 import { auth } from './firebase';
@@ -17,6 +22,9 @@ interface AuthContextType {
   loading: boolean;
   error: string | null;
   signIn: (email: string, password: string) => Promise<{ success: boolean; slug?: string; error?: string }>;
+  signInWithApple: () => Promise<{ success: boolean; slug?: string; error?: string }>;
+  sendPhoneCode: (phoneNumber: string, recaptchaVerifier: RecaptchaVerifier) => Promise<{ success: boolean; confirmationResult?: ConfirmationResult; error?: string }>;
+  verifyPhoneCode: (confirmationResult: ConfirmationResult, code: string) => Promise<{ success: boolean; slug?: string; error?: string }>;
   signOut: () => Promise<void>;
   isSuperAdmin: boolean;
 }
@@ -31,6 +39,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
+  // Verify partner admin status after any auth
+  const verifyPartnerAdmin = async (firebaseUser: User) => {
+    const token = await firebaseUser.getIdToken();
+    const res = await fetch('/api/partners/auth', {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    
+    if (!res.ok) {
+      const errorData = await res.json();
+      await firebaseSignOut(auth);
+      return { success: false, error: errorData.error || 'No partner account found for this login' };
+    }
+    
+    const data = await res.json();
+    setPartnerAdmin(data.partnerAdmin);
+    setOrganization(data.organization);
+    setIsSuperAdmin(data.isSuperAdmin || false);
+    
+    return { success: true, slug: data.organization?.slug };
+  };
+
   // Fetch partner admin data when user changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -38,7 +67,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       
       if (firebaseUser) {
         try {
-          // Verify partner admin status via API
           const token = await firebaseUser.getIdToken();
           const res = await fetch('/api/partners/auth', {
             headers: { Authorization: `Bearer ${token}` }
@@ -72,31 +100,57 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => unsubscribe();
   }, []);
 
+  // Email/Password sign in
   const signIn = async (email: string, password: string) => {
     try {
       setError(null);
       const result = await signInWithEmailAndPassword(auth, email, password);
-      
-      // Verify partner admin status
-      const token = await result.user.getIdToken();
-      const res = await fetch('/api/partners/auth', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      
-      if (!res.ok) {
-        const errorData = await res.json();
-        await firebaseSignOut(auth);
-        return { success: false, error: errorData.error || 'Not authorized as partner admin' };
-      }
-      
-      const data = await res.json();
-      setPartnerAdmin(data.partnerAdmin);
-      setOrganization(data.organization);
-      setIsSuperAdmin(data.isSuperAdmin || false);
-      
-      return { success: true, slug: data.organization?.slug };
+      return await verifyPartnerAdmin(result.user);
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to sign in';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  // Apple Sign In
+  const signInWithApple = async () => {
+    try {
+      setError(null);
+      const provider = new OAuthProvider('apple.com');
+      provider.addScope('email');
+      provider.addScope('name');
+      
+      const result = await signInWithPopup(auth, provider);
+      return await verifyPartnerAdmin(result.user);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to sign in with Apple';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  // Send phone verification code
+  const sendPhoneCode = async (phoneNumber: string, recaptchaVerifier: RecaptchaVerifier) => {
+    try {
+      setError(null);
+      const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier);
+      return { success: true, confirmationResult };
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to send verification code';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  // Verify phone code
+  const verifyPhoneCode = async (confirmationResult: ConfirmationResult, code: string) => {
+    try {
+      setError(null);
+      const result = await confirmationResult.confirm(code);
+      return await verifyPartnerAdmin(result.user);
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Invalid verification code';
       setError(errorMessage);
       return { success: false, error: errorMessage };
     }
@@ -116,7 +170,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       organization, 
       loading, 
       error, 
-      signIn, 
+      signIn,
+      signInWithApple,
+      sendPhoneCode,
+      verifyPhoneCode,
       signOut,
       isSuperAdmin 
     }}>
@@ -132,4 +189,3 @@ export function useAuth() {
   }
   return context;
 }
-

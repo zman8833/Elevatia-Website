@@ -8,6 +8,7 @@
       "source": "/:path+/",
       "destination": "/:path+",
       "internal": true,
+      "priority": true,
       "statusCode": 308,
       "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
     }
@@ -64,13 +65,33 @@
       "regex": "^/site\\.webmanifest(?:/)?$"
     }
   ],
-  "dynamicRoutes": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [
+    {
+      "page": "/partners/dashboard/[slug]",
+      "regex": "^/partners/dashboard/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/partners/dashboard/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
   "staticRoutes": [
     {
       "page": "/",
       "regex": "^/(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
     },
     {
       "page": "/_not-found",
@@ -85,6 +106,48 @@
       "namedRegex": "^/about(?:/)?$"
     },
     {
+      "page": "/admin/partners",
+      "regex": "^/admin/partners(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/admin/partners(?:/)?$"
+    },
+    {
+      "page": "/api/partners/auth",
+      "regex": "^/api/partners/auth(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/partners/auth(?:/)?$"
+    },
+    {
+      "page": "/api/partners/codes",
+      "regex": "^/api/partners/codes(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/partners/codes(?:/)?$"
+    },
+    {
+      "page": "/api/partners/organizations",
+      "regex": "^/api/partners/organizations(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/partners/organizations(?:/)?$"
+    },
+    {
+      "page": "/api/partners/paths",
+      "regex": "^/api/partners/paths(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/partners/paths(?:/)?$"
+    },
+    {
+      "page": "/api/partners/stats",
+      "regex": "^/api/partners/stats(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/partners/stats(?:/)?$"
+    },
+    {
+      "page": "/api/partners/users",
+      "regex": "^/api/partners/users(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/partners/users(?:/)?$"
+    },
+    {
       "page": "/contact",
       "regex": "^/contact(?:/)?$",
       "routeKeys": {},
@@ -97,6 +160,18 @@
       "namedRegex": "^/join(?:/)?$"
     },
     {
+      "page": "/partners",
+      "regex": "^/partners(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/partners(?:/)?$"
+    },
+    {
+      "page": "/partners/login",
+      "regex": "^/partners/login(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/partners/login(?:/)?$"
+    },
+    {
       "page": "/privacy",
       "regex": "^/privacy(?:/)?$",
       "routeKeys": {},
@@ -107,24 +182,31 @@
       "regex": "^/terms(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/terms(?:/)?$"
+    },
+    {
+      "page": "/verify-email",
+      "regex": "^/verify\\-email(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/verify\\-email(?:/)?$"
     }
   ],
   "dataRoutes": [],
   "rsc": {
-    "header": "RSC",
-    "varyHeader": "RSC, Next-Router-State-Tree, Next-Router-Prefetch, Next-Router-Segment-Prefetch",
-    "prefetchHeader": "Next-Router-Prefetch",
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
     "didPostponeHeader": "x-nextjs-postponed",
     "contentTypeHeader": "text/x-component",
     "suffix": ".rsc",
     "prefetchSuffix": ".prefetch.rsc",
-    "prefetchSegmentHeader": "Next-Router-Segment-Prefetch",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
     "prefetchSegmentSuffix": ".segment.rsc",
-    "prefetchSegmentDirSuffix": ".segments"
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
   },
   "rewriteHeaders": {
     "pathHeader": "x-nextjs-rewritten-path",
     "queryHeader": "x-nextjs-rewritten-query"
-  },
-  "rewrites": []
+  }
 }
