@@ -6,6 +6,7 @@
   "/api/partners/auth/route": "app/api/partners/auth/route.js",
   "/api/partners/codes/route": "app/api/partners/codes/route.js",
   "/api/partners/organizations/route": "app/api/partners/organizations/route.js",
+  "/api/partners/path-requests/route": "app/api/partners/path-requests/route.js",
   "/api/partners/paths/route": "app/api/partners/paths/route.js",
   "/api/partners/stats/route": "app/api/partners/stats/route.js",
   "/api/partners/users/route": "app/api/partners/users/route.js",

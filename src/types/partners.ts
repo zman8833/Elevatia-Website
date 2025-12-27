@@ -120,3 +120,32 @@ export interface CreateAdminForm {
   displayName?: string;
 }
 
+// Partner Path Request - Custom path requests from partners
+export interface PartnerPathRequest {
+  id: string;
+  organizationId: string;
+  requestedBy: string;           // UID of partner admin
+  pathName: string;
+  description: string;
+  targetAudience: string;
+  goals: string[];
+  preferredCategory: 'fitness' | 'nutrition' | 'mental' | 'sleep' | 'recovery' | 'other';
+  additionalNotes?: string;
+  status: 'pending' | 'in_review' | 'approved' | 'rejected' | 'live';
+  reviewNotes?: string;
+  rejectionReason?: string;
+  submittedAt: Timestamp;
+  reviewedAt?: Timestamp;
+  completedAt?: Timestamp;
+  partnerPathId?: string;
+}
+
+export interface CreatePathRequestForm {
+  pathName: string;
+  description: string;
+  targetAudience: string;
+  goals: string[];
+  preferredCategory: 'fitness' | 'nutrition' | 'mental' | 'sleep' | 'recovery' | 'other';
+  additionalNotes?: string;
+}
+

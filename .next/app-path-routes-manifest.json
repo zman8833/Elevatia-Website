@@ -6,6 +6,7 @@
   "/api/partners/auth/route": "/api/partners/auth",
   "/api/partners/codes/route": "/api/partners/codes",
   "/api/partners/organizations/route": "/api/partners/organizations",
+  "/api/partners/path-requests/route": "/api/partners/path-requests",
   "/api/partners/paths/route": "/api/partners/paths",
   "/api/partners/stats/route": "/api/partners/stats",
   "/api/partners/users/route": "/api/partners/users",

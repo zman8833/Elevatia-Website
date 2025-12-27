@@ -130,6 +130,12 @@
       "namedRegex": "^/api/partners/organizations(?:/)?$"
     },
     {
+      "page": "/api/partners/path-requests",
+      "regex": "^/api/partners/path\\-requests(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/partners/path\\-requests(?:/)?$"
+    },
+    {
       "page": "/api/partners/paths",
       "regex": "^/api/partners/paths(?:/)?$",
       "routeKeys": {},
