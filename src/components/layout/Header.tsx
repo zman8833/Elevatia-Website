@@ -19,12 +19,6 @@ const Header = () => {
             <Link href="/" className="text-gray-600 hover:text-gray-900">
               Home
             </Link>
-            <Link href="/about" className="text-gray-600 hover:text-gray-900">
-              About
-            </Link>
-            <Link href="/services" className="text-gray-600 hover:text-gray-900">
-              Services
-            </Link>
             <Link href="/contact" className="text-gray-600 hover:text-gray-900">
               Contact
             </Link>
@@ -59,12 +53,6 @@ const Header = () => {
             <div className="flex flex-col space-y-4">
               <Link href="/" className="text-gray-600 hover:text-gray-900">
                 Home
-              </Link>
-              <Link href="/about" className="text-gray-600 hover:text-gray-900">
-                About
-              </Link>
-              <Link href="/services" className="text-gray-600 hover:text-gray-900">
-                Services
               </Link>
               <Link href="/contact" className="text-gray-600 hover:text-gray-900">
                 Contact
