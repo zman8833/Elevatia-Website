@@ -57,7 +57,7 @@ export default function PartnersPage() {
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a 
-                href="mailto:partnerships@getelevatia.com?subject=Partnership%20Inquiry"
+                href="mailto:zackh@getelevatia.com?subject=Partnership%20Inquiry"
                 className="px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all shadow-lg hover:shadow-xl text-lg"
               >
                 Become a Partner
@@ -98,7 +98,7 @@ export default function PartnersPage() {
               },
               {
                 title: 'Exclusive Wellness Paths',
-                description: 'Create custom wellness journeys tailored to your community&apos;s needs. From fitness to mindfulness.',
+                description: "Create custom wellness journeys tailored to your community's needs. From fitness to mindfulness.",
                 icon: (
                   <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
@@ -145,12 +145,12 @@ export default function PartnersPage() {
                 {
                   step: '01',
                   title: 'Reach Out',
-                  description: 'Email our partnerships team to discuss your organization&apos;s wellness goals and needs.',
+                  description: "Email our partnerships team to discuss your organization's wellness goals and needs.",
                 },
                 {
                   step: '02',
                   title: 'Get Set Up',
-                  description: 'We&apos;ll create your organization profile, set your tier, and give you dashboard access.',
+                  description: "We'll create your organization profile, set your tier, and give you dashboard access.",
                 },
                 {
                   step: '03',
@@ -249,13 +249,13 @@ export default function PartnersPage() {
             Contact our partnerships team to discuss how Elevatia can support your wellness initiatives.
           </p>
           <a 
-            href="mailto:partnerships@getelevatia.com?subject=Partnership%20Inquiry"
+            href="mailto:zackh@getelevatia.com?subject=Partnership%20Inquiry"
             className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-orange-500 to-yellow-500 text-white font-semibold rounded-xl hover:from-orange-600 hover:to-yellow-600 transition-all shadow-lg hover:shadow-xl text-lg"
           >
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
-            partnerships@getelevatia.com
+            zackh@getelevatia.com
           </a>
         </div>
       </section>
