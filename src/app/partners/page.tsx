@@ -200,13 +200,13 @@ export default function PartnersPage() {
               {
                 name: 'Growth',
                 description: 'For growing organizations with active wellness programs',
-                features: ['Up to 500 active users', 'Advanced analytics', 'Custom paths', 'Priority support'],
+                features: ['Up to 500 active users', 'Advanced analytics', 'Custom paths', 'Partner branding in-app', 'Priority support'],
                 highlighted: true,
               },
               {
                 name: 'Enterprise',
                 description: 'Full-featured solution for large organizations',
-                features: ['Unlimited users', 'Custom branding', 'API access', 'Dedicated account manager'],
+                features: ['Unlimited users', 'Partner branding in-app', 'API access', 'Dedicated account manager'],
               },
             ].map((tier) => (
               <div 
