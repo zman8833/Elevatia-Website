@@ -3,17 +3,29 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { 
   User, 
+  AuthCredential,
   onAuthStateChanged, 
   signInWithEmailAndPassword,
   signInWithPopup,
   signInWithPhoneNumber,
+  linkWithCredential,
   OAuthProvider,
   RecaptchaVerifier,
   ConfirmationResult,
+  PhoneAuthProvider,
   signOut as firebaseSignOut 
 } from 'firebase/auth';
 import { auth } from './firebase';
 import { PartnerAdmin, Organization } from '@/types/partners';
+
+interface AuthResult {
+  success: boolean;
+  slug?: string;
+  error?: string;
+  needsLinking?: boolean;
+  pendingCredential?: AuthCredential;
+  pendingUser?: User;
+}
 
 interface AuthContextType {
   user: User | null;
@@ -21,10 +33,11 @@ interface AuthContextType {
   organization: Organization | null;
   loading: boolean;
   error: string | null;
-  signIn: (email: string, password: string) => Promise<{ success: boolean; slug?: string; error?: string }>;
-  signInWithApple: () => Promise<{ success: boolean; slug?: string; error?: string }>;
+  signIn: (email: string, password: string) => Promise<AuthResult>;
+  signInWithApple: () => Promise<AuthResult>;
   sendPhoneCode: (phoneNumber: string, recaptchaVerifier: RecaptchaVerifier) => Promise<{ success: boolean; confirmationResult?: ConfirmationResult; error?: string }>;
-  verifyPhoneCode: (confirmationResult: ConfirmationResult, code: string) => Promise<{ success: boolean; slug?: string; error?: string }>;
+  verifyPhoneCode: (confirmationResult: ConfirmationResult, code: string) => Promise<AuthResult>;
+  linkAccountWithEmail: (email: string, password: string, pendingCredential: AuthCredential) => Promise<AuthResult>;
   signOut: () => Promise<void>;
   isSuperAdmin: boolean;
 }
@@ -40,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isSuperAdmin, setIsSuperAdmin] = useState(false);
 
   // Verify partner admin status after any auth
-  const verifyPartnerAdmin = async (firebaseUser: User) => {
+  const verifyPartnerAdmin = async (firebaseUser: User): Promise<AuthResult> => {
     const token = await firebaseUser.getIdToken();
     const res = await fetch('/api/partners/auth', {
       headers: { Authorization: `Bearer ${token}` }
@@ -48,8 +61,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     
     if (!res.ok) {
       const errorData = await res.json();
-      await firebaseSignOut(auth);
-      return { success: false, error: errorData.error || 'No partner account found for this login' };
+      // Don't sign out - we need the user for linking
+      return { 
+        success: false, 
+        error: errorData.error || 'No partner account found for this login',
+        needsLinking: true,
+        pendingUser: firebaseUser
+      };
     }
     
     const data = await res.json();
@@ -101,7 +119,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   // Email/Password sign in
-  const signIn = async (email: string, password: string) => {
+  const signIn = async (email: string, password: string): Promise<AuthResult> => {
     try {
       setError(null);
       const result = await signInWithEmailAndPassword(auth, email, password);
@@ -114,7 +132,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   // Apple Sign In
-  const signInWithApple = async () => {
+  const signInWithApple = async (): Promise<AuthResult> => {
     try {
       setError(null);
       const provider = new OAuthProvider('apple.com');
@@ -122,7 +140,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       provider.addScope('name');
       
       const result = await signInWithPopup(auth, provider);
-      return await verifyPartnerAdmin(result.user);
+      const credential = OAuthProvider.credentialFromResult(result);
+      
+      const verifyResult = await verifyPartnerAdmin(result.user);
+      
+      if (verifyResult.needsLinking && credential) {
+        // Sign out the Apple user so we can sign in with email
+        await firebaseSignOut(auth);
+        return {
+          ...verifyResult,
+          pendingCredential: credential
+        };
+      }
+      
+      return verifyResult;
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Failed to sign in with Apple';
       setError(errorMessage);
@@ -144,13 +175,64 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   // Verify phone code
-  const verifyPhoneCode = async (confirmationResult: ConfirmationResult, code: string) => {
+  const verifyPhoneCode = async (confirmationResult: ConfirmationResult, code: string): Promise<AuthResult> => {
     try {
       setError(null);
       const result = await confirmationResult.confirm(code);
-      return await verifyPartnerAdmin(result.user);
+      
+      // Create credential for potential linking
+      const credential = PhoneAuthProvider.credential(confirmationResult.verificationId, code);
+      
+      const verifyResult = await verifyPartnerAdmin(result.user);
+      
+      if (verifyResult.needsLinking) {
+        // Sign out the phone user so we can sign in with email
+        await firebaseSignOut(auth);
+        return {
+          ...verifyResult,
+          pendingCredential: credential
+        };
+      }
+      
+      return verifyResult;
     } catch (err: unknown) {
       const errorMessage = err instanceof Error ? err.message : 'Invalid verification code';
+      setError(errorMessage);
+      return { success: false, error: errorMessage };
+    }
+  };
+
+  // Link a pending credential to an existing email account
+  const linkAccountWithEmail = async (
+    email: string, 
+    password: string, 
+    pendingCredential: AuthCredential
+  ): Promise<AuthResult> => {
+    try {
+      setError(null);
+      
+      // Sign in with email/password
+      const emailResult = await signInWithEmailAndPassword(auth, email, password);
+      
+      // Link the pending credential (Apple/Phone) to this account
+      await linkWithCredential(emailResult.user, pendingCredential);
+      
+      // Now verify partner admin (should succeed since email account exists)
+      return await verifyPartnerAdmin(emailResult.user);
+    } catch (err: unknown) {
+      let errorMessage = err instanceof Error ? err.message : 'Failed to link accounts';
+      
+      // Handle specific Firebase errors
+      if (errorMessage.includes('auth/provider-already-linked')) {
+        errorMessage = 'This sign-in method is already linked to another account';
+      } else if (errorMessage.includes('auth/credential-already-in-use')) {
+        errorMessage = 'This Apple/Phone account is already linked to a different user';
+      } else if (errorMessage.includes('auth/wrong-password')) {
+        errorMessage = 'Incorrect password';
+      } else if (errorMessage.includes('auth/user-not-found')) {
+        errorMessage = 'No account found with this email';
+      }
+      
       setError(errorMessage);
       return { success: false, error: errorMessage };
     }
@@ -174,6 +256,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signInWithApple,
       sendPhoneCode,
       verifyPhoneCode,
+      linkAccountWithEmail,
       signOut,
       isSuperAdmin 
     }}>
