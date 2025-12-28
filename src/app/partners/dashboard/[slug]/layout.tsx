@@ -64,7 +64,9 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
               
               <div className="hidden sm:flex items-center gap-2 text-sm">
                 <span className="text-gray-400">/</span>
-                <span className="text-gray-600">Partners</span>
+                <Link href="/partners" className="text-gray-600 hover:text-orange-600 transition-colors">
+                  Partners
+                </Link>
                 <span className="text-gray-400">/</span>
                 <span className="font-medium text-gray-900">{organization?.name || 'Admin'}</span>
               </div>
