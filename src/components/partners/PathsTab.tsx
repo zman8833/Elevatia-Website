@@ -125,7 +125,7 @@ export default function PathsTab({ organizationId }: PathsTabProps) {
       setLoading(false);
     };
     loadData();
-  }, [user, organization]);
+  }, [user, organizationId]);
 
   const handleCreatePath = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
