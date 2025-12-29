@@ -16,6 +16,7 @@ function AdminContent() {
   const [loadingOrgs, setLoadingOrgs] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showAddAdminModal, setShowAddAdminModal] = useState<string | null>(null);
+  const [showEditModal, setShowEditModal] = useState<Organization | null>(null);
   const [creating, setCreating] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
@@ -169,6 +170,53 @@ function AdminContent() {
     }
   };
 
+  const handleEditOrg = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!user || !showEditModal) return;
+    
+    setCreating(true);
+    setMessage(null);
+    const formData = new FormData(e.currentTarget);
+    
+    const updates = {
+      organizationId: showEditModal.id,
+      name: formData.get('name') as string,
+      contactName: formData.get('contactName') as string,
+      contactEmail: formData.get('contactEmail') as string,
+      tier: formData.get('tier') as string,
+      maxActiveUsers: parseInt(formData.get('maxActiveUsers') as string),
+      defaultCodeDurationDays: parseInt(formData.get('defaultCodeDurationDays') as string),
+      primaryColor: formData.get('primaryColor') as string,
+      website: formData.get('website') as string || null,
+      description: formData.get('description') as string || null,
+    };
+    
+    try {
+      const token = await user.getIdToken();
+      const res = await fetch('/api/partners/organizations', {
+        method: 'PATCH',
+        headers: { 
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updates)
+      });
+      
+      if (res.ok) {
+        setShowEditModal(null);
+        fetchOrganizations();
+        setMessage({ type: 'success', text: 'Organization updated successfully' });
+      } else {
+        const data = await res.json();
+        setMessage({ type: 'error', text: data.error || 'Failed to update organization' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to update organization' });
+    } finally {
+      setCreating(false);
+    }
+  };
+
   const handleSignOut = async () => {
     await signOut();
     router.push('/partners/login');
@@ -313,10 +361,16 @@ function AdminContent() {
                 <div className="flex flex-wrap gap-2 pt-4 border-t border-gray-100">
                   <Link
                     href={`/partners/dashboard/${org.slug}`}
-                    className="flex-1 py-2 px-3 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors text-center"
+                    className="py-2 px-3 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors text-center"
                   >
                     View Dashboard
                   </Link>
+                  <button
+                    onClick={() => setShowEditModal(org)}
+                    className="py-2 px-3 bg-blue-100 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-200 transition-colors"
+                  >
+                    Edit
+                  </button>
                   <button
                     onClick={() => setShowAddAdminModal(org.id)}
                     className="py-2 px-3 bg-purple-100 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-200 transition-colors"
@@ -561,6 +615,163 @@ function AdminContent() {
                   className="flex-1 py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all disabled:opacity-50"
                 >
                   {creating ? 'Adding...' : 'Add Admin'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Edit Organization Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-lg font-semibold text-gray-900">Edit Organization</h3>
+              <button
+                onClick={() => setShowEditModal(null)}
+                className="text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+            
+            <form onSubmit={handleEditOrg} className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Organization Name</label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    defaultValue={showEditModal.name}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+                  <input
+                    type="text"
+                    value={showEditModal.slug}
+                    disabled
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl bg-gray-50 text-gray-500"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Contact Name</label>
+                  <input
+                    type="text"
+                    name="contactName"
+                    required
+                    defaultValue={showEditModal.contactName}
+                    placeholder="e.g., Surf Synergy Partnerships"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Contact Email</label>
+                  <input
+                    type="email"
+                    name="contactEmail"
+                    required
+                    defaultValue={showEditModal.contactEmail}
+                    placeholder="partnerships@company.com"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Tier</label>
+                  <select 
+                    name="tier" 
+                    required
+                    defaultValue={showEditModal.tier}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  >
+                    <option value="starter">Starter</option>
+                    <option value="growth">Growth</option>
+                    <option value="enterprise">Enterprise</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Max Active Users</label>
+                  <input
+                    type="number"
+                    name="maxActiveUsers"
+                    required
+                    min="1"
+                    defaultValue={showEditModal.maxActiveUsers}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Default Code Duration (days)</label>
+                  <input
+                    type="number"
+                    name="defaultCodeDurationDays"
+                    required
+                    min="1"
+                    defaultValue={showEditModal.defaultCodeDurationDays}
+                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Brand Color</label>
+                  <input
+                    type="color"
+                    name="primaryColor"
+                    defaultValue={showEditModal.primaryColor || '#FF6B00'}
+                    className="w-full h-10 px-1 py-1 border border-gray-200 rounded-xl cursor-pointer"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                <input
+                  type="url"
+                  name="website"
+                  defaultValue={showEditModal.website || ''}
+                  placeholder="https://company.com"
+                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <textarea
+                  name="description"
+                  rows={2}
+                  defaultValue={showEditModal.description || ''}
+                  placeholder="About this organization..."
+                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none"
+                />
+              </div>
+              
+              <div className="flex gap-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setShowEditModal(null)}
+                  className="flex-1 py-2 px-4 border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={creating}
+                  className="flex-1 py-2 px-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-xl hover:from-purple-600 hover:to-pink-600 transition-all disabled:opacity-50"
+                >
+                  {creating ? 'Saving...' : 'Save Changes'}
                 </button>
               </div>
             </form>

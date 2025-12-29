@@ -172,7 +172,7 @@ export async function PATCH(request: NextRequest) {
     // Filter allowed fields for non-super admins
     const allowedUpdates: Record<string, unknown> = {};
     const orgEditableFields = ['description', 'website', 'primaryColor', 'logo'];
-    const superAdminFields = ['status', 'tier', 'maxActiveUsers', 'name'];
+    const superAdminFields = ['status', 'tier', 'maxActiveUsers', 'name', 'contactName', 'contactEmail', 'defaultCodeDurationDays'];
     
     for (const field of orgEditableFields) {
       if (field in updates) allowedUpdates[field] = updates[field];
