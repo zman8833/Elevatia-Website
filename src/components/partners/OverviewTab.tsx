@@ -5,18 +5,22 @@ import { useAuth } from '@/lib/auth-context';
 import StatsCard from './StatsCard';
 import { PartnerStats } from '@/types/partners';
 
-export default function OverviewTab() {
-  const { user, organization } = useAuth();
+interface OverviewTabProps {
+  organizationId: string;
+}
+
+export default function OverviewTab({ organizationId }: OverviewTabProps) {
+  const { user } = useAuth();
   const [stats, setStats] = useState<PartnerStats & { chartData?: { date: string; redemptions: number }[] } | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchStats() {
-      if (!user || !organization) return;
+      if (!user || !organizationId) return;
       
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`/api/partners/stats?organizationId=${organization.id}`, {
+        const res = await fetch(`/api/partners/stats?organizationId=${organizationId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -32,7 +36,7 @@ export default function OverviewTab() {
     }
     
     fetchStats();
-  }, [user, organization]);
+  }, [user, organizationId]);
 
   if (loading) {
     return (
@@ -142,7 +146,7 @@ export default function OverviewTab() {
             onClick={() => document.querySelector('[data-tab="paths"]')?.dispatchEvent(new Event('click'))}
             className="px-4 py-2 bg-white rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors border border-gray-200"
           >
-            Create Path
+            Request Path
           </button>
           <button 
             onClick={() => document.querySelector('[data-tab="settings"]')?.dispatchEvent(new Event('click'))}
@@ -155,4 +159,3 @@ export default function OverviewTab() {
     </div>
   );
 }
-

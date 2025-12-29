@@ -36,23 +36,27 @@ const tabs = [
   )},
 ];
 
-export default function DashboardTabs() {
+interface DashboardTabsProps {
+  organizationId: string;
+}
+
+export default function DashboardTabs({ organizationId }: DashboardTabsProps) {
   const [activeTab, setActiveTab] = useState('overview');
 
   const renderTab = () => {
     switch (activeTab) {
       case 'overview':
-        return <OverviewTab />;
+        return <OverviewTab organizationId={organizationId} />;
       case 'codes':
-        return <CodesTab />;
+        return <CodesTab organizationId={organizationId} />;
       case 'users':
-        return <UsersTab />;
+        return <UsersTab organizationId={organizationId} />;
       case 'paths':
-        return <PathsTab />;
+        return <PathsTab organizationId={organizationId} />;
       case 'settings':
-        return <SettingsTab />;
+        return <SettingsTab organizationId={organizationId} />;
       default:
-        return <OverviewTab />;
+        return <OverviewTab organizationId={organizationId} />;
     }
   };
 
@@ -84,4 +88,3 @@ export default function DashboardTabs() {
     </div>
   );
 }
-

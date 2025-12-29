@@ -2,10 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
-import { PartnerAdmin, CreateAdminForm } from '@/types/partners';
+import { PartnerAdmin, CreateAdminForm, Organization } from '@/types/partners';
 
-export default function SettingsTab() {
-  const { user, organization, partnerAdmin } = useAuth();
+interface SettingsTabProps {
+  organizationId: string;
+}
+
+export default function SettingsTab({ organizationId }: SettingsTabProps) {
+  const { user, partnerAdmin, isSuperAdmin } = useAuth();
+  const [org, setOrg] = useState<Organization | null>(null);
   const [admins, setAdmins] = useState<PartnerAdmin[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -18,41 +23,41 @@ export default function SettingsTab() {
   const [website, setWebsite] = useState('');
   const [primaryColor, setPrimaryColor] = useState('#FF6B00');
 
-  useEffect(() => {
-    if (organization) {
-      setDescription(organization.description || '');
-      setWebsite(organization.website || '');
-      setPrimaryColor(organization.primaryColor || '#FF6B00');
-    }
-  }, [organization]);
-
-  const fetchAdmins = async () => {
-    if (!user || !organization) return;
+  const fetchOrgData = async () => {
+    if (!user || !organizationId) return;
     
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`/api/partners/organizations?organizationId=${organization.id}`, {
+      const res = await fetch(`/api/partners/organizations?organizationId=${organizationId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
       if (res.ok) {
         const data = await res.json();
+        setOrg(data.organization);
         setAdmins(data.admins || []);
+        
+        // Set form defaults from fetched org
+        if (data.organization) {
+          setDescription(data.organization.description || '');
+          setWebsite(data.organization.website || '');
+          setPrimaryColor(data.organization.primaryColor || '#FF6B00');
+        }
       }
     } catch (error) {
-      console.error('Error fetching admins:', error);
+      console.error('Error fetching org data:', error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchAdmins();
-  }, [user, organization]);
+    fetchOrgData();
+  }, [user, organizationId]);
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     setSaving(true);
     setMessage(null);
@@ -66,7 +71,7 @@ export default function SettingsTab() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          organizationId: organization.id,
+          organizationId,
           description,
           website,
           primaryColor,
@@ -75,6 +80,7 @@ export default function SettingsTab() {
       
       if (res.ok) {
         setMessage({ type: 'success', text: 'Profile updated successfully' });
+        fetchOrgData(); // Refresh data
       } else {
         const data = await res.json();
         setMessage({ type: 'error', text: data.error || 'Failed to update profile' });
@@ -88,13 +94,13 @@ export default function SettingsTab() {
 
   const handleAddAdmin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     setAdding(true);
     const formData = new FormData(e.currentTarget);
     
     const adminData: CreateAdminForm & { organizationId: string; action: string } = {
-      organizationId: organization.id,
+      organizationId,
       action: 'addAdmin',
       email: formData.get('email') as string,
       role: formData.get('role') as 'owner' | 'admin' | 'viewer',
@@ -114,7 +120,7 @@ export default function SettingsTab() {
       
       if (res.ok) {
         setShowAddModal(false);
-        fetchAdmins();
+        fetchOrgData();
         setMessage({ type: 'success', text: 'Team member added successfully' });
       } else {
         const data = await res.json();
@@ -128,7 +134,7 @@ export default function SettingsTab() {
   };
 
   const handleRemoveAdmin = async (adminId: string) => {
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     if (!confirm('Are you sure you want to remove this team member?')) return;
     
     try {
@@ -140,14 +146,14 @@ export default function SettingsTab() {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          organizationId: organization.id,
+          organizationId,
           action: 'removeAdmin',
           adminId,
         })
       });
       
       if (res.ok) {
-        fetchAdmins();
+        fetchOrgData();
         setMessage({ type: 'success', text: 'Team member removed' });
       } else {
         const data = await res.json();
@@ -158,7 +164,7 @@ export default function SettingsTab() {
     }
   };
 
-  const canManageTeam = partnerAdmin?.role === 'owner';
+  const canManageTeam = partnerAdmin?.role === 'owner' || isSuperAdmin;
 
   if (loading) {
     return (
@@ -191,7 +197,7 @@ export default function SettingsTab() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Organization Name</label>
               <input
                 type="text"
-                value={organization?.name || ''}
+                value={org?.name || ''}
                 disabled
                 className="w-full px-4 py-2 border border-gray-200 rounded-xl bg-gray-50 text-gray-500"
               />
@@ -202,7 +208,7 @@ export default function SettingsTab() {
               <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
               <input
                 type="text"
-                value={organization?.slug || ''}
+                value={org?.slug || ''}
                 disabled
                 className="w-full px-4 py-2 border border-gray-200 rounded-xl bg-gray-50 text-gray-500"
               />
@@ -269,21 +275,21 @@ export default function SettingsTab() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div className="bg-gray-50 rounded-xl p-4">
             <p className="text-sm text-gray-500">Tier</p>
-            <p className="font-semibold text-gray-900 capitalize">{organization?.tier}</p>
+            <p className="font-semibold text-gray-900 capitalize">{org?.tier}</p>
           </div>
           <div className="bg-gray-50 rounded-xl p-4">
             <p className="text-sm text-gray-500">Status</p>
             <p className={`font-semibold capitalize ${
-              organization?.status === 'active' ? 'text-green-600' : 'text-gray-600'
-            }`}>{organization?.status}</p>
+              org?.status === 'active' ? 'text-green-600' : 'text-gray-600'
+            }`}>{org?.status}</p>
           </div>
           <div className="bg-gray-50 rounded-xl p-4">
             <p className="text-sm text-gray-500">Max Active Users</p>
-            <p className="font-semibold text-gray-900">{organization?.maxActiveUsers}</p>
+            <p className="font-semibold text-gray-900">{org?.maxActiveUsers}</p>
           </div>
           <div className="bg-gray-50 rounded-xl p-4">
             <p className="text-sm text-gray-500">Default Code Duration</p>
-            <p className="font-semibold text-gray-900">{organization?.defaultCodeDurationDays} days</p>
+            <p className="font-semibold text-gray-900">{org?.defaultCodeDurationDays} days</p>
           </div>
         </div>
       </div>
@@ -419,4 +425,3 @@ export default function SettingsTab() {
     </div>
   );
 }
-

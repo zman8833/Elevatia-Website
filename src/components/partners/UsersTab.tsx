@@ -11,19 +11,23 @@ interface AffiliatedUser {
   isActive: boolean;
 }
 
-export default function UsersTab() {
-  const { user, organization } = useAuth();
+interface UsersTabProps {
+  organizationId: string;
+}
+
+export default function UsersTab({ organizationId }: UsersTabProps) {
+  const { user } = useAuth();
   const [users, setUsers] = useState<AffiliatedUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ total: 0, activeCount: 0 });
 
   useEffect(() => {
     async function fetchUsers() {
-      if (!user || !organization) return;
+      if (!user || !organizationId) return;
       
       try {
         const token = await user.getIdToken();
-        const res = await fetch(`/api/partners/users?organizationId=${organization.id}`, {
+        const res = await fetch(`/api/partners/users?organizationId=${organizationId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -40,7 +44,7 @@ export default function UsersTab() {
     }
     
     fetchUsers();
-  }, [user, organization]);
+  }, [user, organizationId]);
 
   const formatDate = (dateStr: string) => {
     return new Date(dateStr).toLocaleDateString('en-US', { 

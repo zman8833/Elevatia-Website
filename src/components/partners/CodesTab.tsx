@@ -4,8 +4,12 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '@/lib/auth-context';
 import { PartnerCode, CreateCodeForm } from '@/types/partners';
 
-export default function CodesTab() {
-  const { user, organization } = useAuth();
+interface CodesTabProps {
+  organizationId: string;
+}
+
+export default function CodesTab({ organizationId }: CodesTabProps) {
+  const { user } = useAuth();
   const [codes, setCodes] = useState<PartnerCode[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -13,11 +17,11 @@ export default function CodesTab() {
   const [copiedCode, setCopiedCode] = useState<string | null>(null);
 
   const fetchCodes = async () => {
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`/api/partners/codes?organizationId=${organization.id}`, {
+      const res = await fetch(`/api/partners/codes?organizationId=${organizationId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -34,21 +38,21 @@ export default function CodesTab() {
 
   useEffect(() => {
     fetchCodes();
-  }, [user, organization]);
+  }, [user, organizationId]);
 
   const handleCreateCode = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     setCreating(true);
     const formData = new FormData(e.currentTarget);
     
     const codeData: CreateCodeForm & { organizationId: string } = {
-      organizationId: organization.id,
+      organizationId: organizationId,
       type: formData.get('type') as 'single' | 'multi',
       maxRedemptions: formData.get('type') === 'multi' ? parseInt(formData.get('maxRedemptions') as string) : undefined,
       expiresAt: formData.get('expiresAt') as string,
-      durationDays: parseInt(formData.get('durationDays') as string) || organization.defaultCodeDurationDays,
+      durationDays: parseInt(formData.get('durationDays') as string) || 30,
       label: formData.get('label') as string || undefined,
       notes: formData.get('notes') as string || undefined,
       prefix: formData.get('prefix') as string || undefined,
@@ -77,7 +81,7 @@ export default function CodesTab() {
   };
 
   const handleToggleActive = async (code: PartnerCode) => {
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     try {
       const token = await user.getIdToken();
@@ -89,7 +93,7 @@ export default function CodesTab() {
         },
         body: JSON.stringify({
           codeId: code.id,
-          organizationId: organization.id,
+          organizationId: organizationId,
           isActive: !code.isActive
         })
       });
@@ -314,7 +318,7 @@ export default function CodesTab() {
                   type="number"
                   name="durationDays"
                   min="1"
-                  defaultValue={organization?.defaultCodeDurationDays || 30}
+                  defaultValue={30}
                   className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                 />
               </div>
@@ -334,7 +338,7 @@ export default function CodesTab() {
                 <input
                   type="text"
                   name="prefix"
-                  placeholder={organization?.slug.toUpperCase().slice(0, 4) || 'CODE'}
+                  placeholder={organizationId.toUpperCase().slice(0, 4)}
                   maxLength={6}
                   className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-transparent uppercase"
                 />
@@ -373,4 +377,3 @@ export default function CodesTab() {
     </div>
   );
 }
-

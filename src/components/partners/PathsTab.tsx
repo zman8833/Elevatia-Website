@@ -57,8 +57,12 @@ const statusConfig: Record<string, { bg: string; text: string; label: string; ic
   live: { bg: 'bg-green-100', text: 'text-green-700', label: 'Live', icon: '✓' },
 };
 
-export default function PathsTab() {
-  const { user, organization } = useAuth();
+interface PathsTabProps {
+  organizationId: string;
+}
+
+export default function PathsTab({ organizationId }: PathsTabProps) {
+  const { user } = useAuth();
   const [paths, setPaths] = useState<PartnerPath[]>([]);
   const [pathRequests, setPathRequests] = useState<PartnerPathRequest[]>([]);
   const [loading, setLoading] = useState(true);
@@ -79,11 +83,11 @@ export default function PathsTab() {
   });
 
   const fetchPaths = async () => {
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     try {
       const token = await user.getIdToken();
-      const res = await fetch(`/api/partners/paths?organizationId=${organization.id}`, {
+      const res = await fetch(`/api/partners/paths?organizationId=${organizationId}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       
@@ -97,7 +101,7 @@ export default function PathsTab() {
   };
 
   const fetchPathRequests = async () => {
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     try {
       const token = await user.getIdToken();
@@ -125,13 +129,13 @@ export default function PathsTab() {
 
   const handleCreatePath = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     setCreating(true);
     const formData = new FormData(e.currentTarget);
     
     const pathData: CreatePathForm & { organizationId: string } = {
-      organizationId: organization.id,
+      organizationId: organizationId,
       pathId: formData.get('pathId') as string,
       title: formData.get('title') as string,
       description: formData.get('description') as string,
@@ -164,7 +168,7 @@ export default function PathsTab() {
 
   const handleSubmitRequest = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     // Filter out empty goals
     const filteredGoals = requestForm.goals.filter(g => g.trim() !== '');
@@ -214,7 +218,7 @@ export default function PathsTab() {
   };
 
   const handleToggleActive = async (path: PartnerPath) => {
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     
     try {
       const token = await user.getIdToken();
@@ -226,7 +230,7 @@ export default function PathsTab() {
         },
         body: JSON.stringify({
           pathId: path.id,
-          organizationId: organization.id,
+          organizationId: organizationId,
           isActive: !path.isActive
         })
       });
@@ -238,12 +242,12 @@ export default function PathsTab() {
   };
 
   const handleDeletePath = async (path: PartnerPath) => {
-    if (!user || !organization) return;
+    if (!user || !organizationId) return;
     if (!confirm('Are you sure you want to delete this path?')) return;
     
     try {
       const token = await user.getIdToken();
-      await fetch(`/api/partners/paths?pathId=${path.id}&organizationId=${organization.id}`, {
+      await fetch(`/api/partners/paths?pathId=${path.id}&organizationId=${organizationId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
