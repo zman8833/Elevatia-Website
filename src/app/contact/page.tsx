@@ -95,6 +95,14 @@ export default function ContactPage() {
                 </p>
               </div>
             </div>
+
+            <p className="text-center text-gray-500 mt-8">
+              Not ready to reach out? You can also{' '}
+              <a href="/stay-in-touch" className="text-gray-700 underline hover:text-gray-900">
+                stay in touch
+              </a>{' '}
+              for occasional updates.
+            </p>
           </div>
         </div>
       </section>
