@@ -404,7 +404,10 @@ export default function Home() {
             <p className="text-gray-600 mb-4">
               © 2025 Elevatia, Co. All rights reserved.
             </p>
-            <div className="flex justify-center space-x-6">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
+              <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
+                About
+              </Link>
               <Link href="/privacy" className="text-gray-600 hover:text-gray-900 transition-colors">
                 Privacy Policy
               </Link>
