@@ -65,21 +65,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Vision Statement Section */}
-      <section className="section-padding relative">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="section-title mb-8 gradient-text-enhanced">
-              Your Wellness Journey, Simplified
-            </h2>
-            <p className="body-large text-gray-600 mb-12">
-              We believe wellness shouldn&apos;t be overwhelming. That&apos;s why Elevatia transforms complex health goals 
-              into clear, actionable steps that fit seamlessly into your daily routine.
-            </p>
-          </div>
-        </div>
-      </section>
-
       {/* 3-Step Process Section */}
       <section className="section-padding relative bg-gradient-to-br from-gray-50/50 to-white/50">
         <div className="container">
@@ -173,14 +158,9 @@ export default function Home() {
             </div>
             <div 
               ref={featuresAnimation.ref}
-              className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-8"
+              className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 max-w-5xl mx-auto"
             >
               {[
-                {
-                  title: "Coach Chat",
-                  description: "Get personalized recommendations and insights powered by advanced AI to help you make better wellness decisions every day.",
-              
-                },
                 {
                   title: "Structured Paths",
                   description: "Follow carefully designed wellness paths that guide you step-by-step toward your health and lifestyle goals with proven methodologies.",
@@ -234,17 +214,17 @@ export default function Home() {
             >
               {[
                 {
-                  number: "100+",
+                  number: "1000+",
                   label: "Active Users",
                   description: "Building better habits daily"
                 },
                 {
-                  number: "2K+",
+                  number: "3K+",
                   label: "Goals Achieved",
                   description: "Milestones reached and celebrated"
                 },
                 {
-                  number: "95%",
+                  number: "97%",
                   label: "Success Rate",
                   description: "Users who stick with their goals"
                 },
@@ -364,7 +344,7 @@ export default function Home() {
               </span>
             </h2>
             <p className="section-subtitle text-orange-100 mb-12 max-w-3xl mx-auto">
-              Join over 100 users who have already discovered the power of personalized wellness guidance. 
+              Join thousands of users who have already discovered the power of personalized wellness guidance.
               Your healthiest, happiest self is just one download away.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
@@ -402,7 +382,7 @@ export default function Home() {
         <div className="container">
           <div className="max-w-6xl mx-auto text-center">
             <p className="text-gray-600 mb-4">
-              © 2025 Elevatia, Co. All rights reserved.
+              © 2026 Elevatia, Co. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-x-6 gap-y-2">
               <Link href="/about" className="text-gray-600 hover:text-gray-900 transition-colors">
