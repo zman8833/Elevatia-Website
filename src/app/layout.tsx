@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Elevatia - Your AI-Powered Wellness Companion",
+    default: "Elevatia - Better Your Life",
     template: "%s | Elevatia"
   },
   description: "Elevatia helps you track and improve various aspects of your life through structured paths. Using AI and gamification, we provide personalized guidance to help you achieve your wellness goals.",
