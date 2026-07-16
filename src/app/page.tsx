@@ -331,46 +331,45 @@ export default function Home() {
       */}
 
       {/* Enhanced CTA Section */}
-      <section className="section-padding-large relative bg-gradient-to-br from-orange-600 to-yellow-600 text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/10"></div>
+      <section className="section-padding-large relative overflow-hidden">
         <div className="container relative">
-          <div 
+          <div
             ref={ctaAnimation.ref}
             className={`max-w-4xl mx-auto text-center ${ctaAnimation.isVisible ? 'scroll-reveal visible' : 'scroll-reveal'}`}
           >
-            <h2 className="hero-title mb-8 text-white">
-              Ready to Transform Your 
-              <span className="block text-yellow-300">
+            <h2 className="hero-title mb-8 gradient-text-enhanced">
+              Ready to Transform Your
+              <span className="block gradient-text-accent">
                 Wellness Journey?
               </span>
             </h2>
-            <p className="section-subtitle text-orange-100 mb-12 max-w-3xl mx-auto">
+            <p className="section-subtitle text-gray-600 mb-12 max-w-3xl mx-auto">
               Join thousands of users who have already discovered the power of personalized wellness guidance.
               Your healthiest, happiest self is just one download away.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-              <a 
+              <a
                 href="https://apps.apple.com/us/app/elevatia/id6747624957"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block interactive-lift interactive-glow bg-white/10 backdrop-blur-sm rounded-2xl p-4"
+                className="inline-block interactive-lift interactive-glow"
               >
                 <Image
                   src="/app-store-badge-official.svg"
                   alt="Download on the App Store"
                   width={200}
                   height={67}
-                  className="h-16 w-auto"
+                  className="h-16 w-auto drop-shadow-lg"
                 />
               </a>
               <div className="text-center sm:text-left">
-                <div className="text-yellow-300 font-semibold mb-1">Free to start</div>
-                <div className="text-orange-100 text-sm">Premium features available</div>
+                <div className="text-orange-600 font-semibold mb-1">Free to start</div>
+                <div className="text-gray-600 text-sm">Premium features available</div>
               </div>
             </div>
-            
-            <div className="mt-12 pt-8 border-t border-white/20">
-              <p className="text-orange-200 text-sm">
+
+            <div className="mt-12 pt-8 border-t border-gray-200">
+              <p className="text-gray-500 text-sm">
                 Your data is secure and private • Available on iOS • 5/5 App Store rating
               </p>
             </div>
