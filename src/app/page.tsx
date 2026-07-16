@@ -167,7 +167,7 @@ export default function Home() {
                 },
                 {
                   title: "Deeply Personal",
-                  description: "Guidance built from neuroscience, hormonal health, your biometrics, your geography, and your background. Over 300 signals shape every recommendation, because one size fits one.",
+                  description: "Guidance built from neuroscience, hormonal health, your biometrics, your geography, and your background. Every signal is read against every other: dozens of inputs become millions of possible daily states, filtered down to your one right move. Because one size fits one.",
                 },
                 {
                   title: "It Works",
