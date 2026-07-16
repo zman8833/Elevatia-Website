@@ -24,14 +24,14 @@ export default function Home() {
             className={`max-w-6xl mx-auto text-center scroll-reveal ${heroAnimation.isVisible ? 'visible' : ''}`}
           >
             <h1 className="hero-title mb-8 gradient-text-enhanced">
-              Transform Your Wellness Journey with 
+              We Tell You What To Do Next
               <span className="block gradient-text-accent">
-                Fully Personalized Guidance
+                To Better Your Life
               </span>
             </h1>
             <p className="section-subtitle max-w-4xl mx-auto mb-12">
-              Elevatia helps you build lasting wellness habits through structured paths, 
-              community fun, and personalized insights that adapt to your unique lifestyle.
+              Elevatia helps you build lasting wellness habits through our Sky Model:
+              neuro symbolic AI that makes life improvement stick.
             </p>
             <div className="flex flex-col items-center space-y-8">
               <a 
@@ -52,11 +52,11 @@ export default function Home() {
               
               {/* iPhone with Real App Screenshot */}
               <div className="relative">
-                <Image 
-                  src="/Group 2.png"
-                  alt="Elevatia App Dashboard"
-                  width={10000}
-                  height={20000}
+                <Image
+                  src="/hero-phones.png"
+                  alt="Elevatia app: Daily Sow, home, and Crucible screens"
+                  width={2280}
+                  height={1840}
                   className="rounded-3xl interactive-lift max-w-4xl mx-auto w-full"
                 />
               </div>
@@ -84,22 +84,22 @@ export default function Home() {
                   step: "Step 1",
                   title: "Download & Set Your Goals",
                   description: "Choose from our curated wellness paths or create custom goals tailored to your lifestyle. Whether it's fitness, nutrition, mindfulness, or sleep - we've got you covered.",
-                  image: "/Model=Silver.png",
-                  alt: "Elevatia goal setting interface"
+                  image: "/step-1-paths.png",
+                  alt: "Elevatia journeys hub with your chosen paths"
                 },
                 {
-                  step: "Step 2", 
-                  title: "Track Your Progress Daily",
-                  description: "Log your activities with our intuitive interface. Our AI analyzes your patterns, celebrates your wins, and provides personalized insights to keep you motivated.",
-                  image: "/Model=Gold.png",
-                  alt: "Elevatia progress tracking dashboard"
+                  step: "Step 2",
+                  title: "Complete Your Daily Sow",
+                  description: "Each morning the Sky Model understands you and where your body is at, then hands you one right move for the day.",
+                  image: "/step-2-sow.png",
+                  alt: "Elevatia Daily Sow readout with one right move"
                 },
                 {
                   step: "Step 3",
                   title: "Achieve & Compete",
                   description: "Reach your milestones, earn achievements, and compete with friends in our Crucible feature. Turn your wellness journey into an engaging, social experience.",
-                  image: "/Model=Deep Purple.png",
-                  alt: "Elevatia achievements and social features"
+                  image: "/step-3-crucible.png",
+                  alt: "Elevatia Crucible groups and competitions"
                 }
               ].map((item, index) => {
                 const animations = [processStep1Animation, processStep2Animation, processStep3Animation];
@@ -125,14 +125,13 @@ export default function Home() {
                     <div className={`${index % 2 === 1 ? 'lg:col-start-1 lg:row-start-1' : ''} ${stepAnimation.isVisible ? 'scale-in visible' : 'scale-in'}`}>
                       <div className="flex justify-center">
                         <div className="relative">
-                          <Image 
+                          <Image
                             src={item.image}
                             alt={item.alt}
-                            width={300}
-                            height={600}
-                            className="rounded-3xl shadow-2xl interactive-lift"
+                            width={320}
+                            height={633}
+                            className="interactive-lift"
                           />
-                          <div className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black/10 to-transparent pointer-events-none"></div>
                         </div>
                       </div>
                     </div>
@@ -153,28 +152,30 @@ export default function Home() {
                 Why Choose Elevatia?
               </h2>
               <p className="section-subtitle text-gray-600">
-                Powerful features designed to make wellness achievable for everyone
+                Most health apps read your tracker data back to you and serve the same
+                one size fits all advice to everyone. Elevatia is better.
               </p>
             </div>
-            <div 
+            <div
               ref={featuresAnimation.ref}
-              className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8 max-w-5xl mx-auto"
+              className="grid grid-cols-1 sm:grid-cols-2 gap-8 max-w-5xl mx-auto"
             >
               {[
                 {
-                  title: "Structured Paths",
-                  description: "Follow carefully designed wellness paths that guide you step-by-step toward your health and lifestyle goals with proven methodologies.",
-                
+                  title: "Beyond Your Tracker",
+                  description: "Your watch and ring only tell you what happened. The Sky Model turns those signals into the one thing they never give you: what to do next, today, for you.",
                 },
                 {
-                  title: "Progress Tracking",
-                  description: "Monitor your journey with detailed analytics, celebrate achievements, and stay motivated with our comprehensive gamification system.",
-                 
+                  title: "Deeply Personal",
+                  description: "Guidance built from neuroscience, hormonal health, your biometrics, your geography, and your background. Over 300 signals shape every recommendation, because one size fits one.",
+                },
+                {
+                  title: "It Works",
+                  description: <>77% of active members are achieving their goals. We measure success by <em>Sows grown into fruit</em>: goals achieved day over day, month over month, backed by user testimonies.</>,
                 },
                 {
                   title: "Crucible",
                   description: "Compete with friends, share progress, and build accountability partnerships that keep you motivated and engaged.",
-                 
                 }
               ].map((feature, index) => (
                 <div 
@@ -214,7 +215,7 @@ export default function Home() {
             >
               {[
                 {
-                  number: "1000+",
+                  number: "1500+",
                   label: "Active Users",
                   description: "Building better habits daily"
                 },
@@ -224,9 +225,9 @@ export default function Home() {
                   description: "Milestones reached and celebrated"
                 },
                 {
-                  number: "97%",
+                  number: "77%",
                   label: "Success Rate",
-                  description: "Users who stick with their goals"
+                  description: "Active members achieving their goals"
                 },
                 {
                   number: "5★",

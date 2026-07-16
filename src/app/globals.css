@@ -36,7 +36,7 @@
   }
 
   .gradient-text-enhanced {
-    background: linear-gradient(135deg, #1f2937 0%, #4b5563 30%, #6b7280 60%, #9ca3af 100%);
+    background: linear-gradient(135deg, #1f2937 0%, #374151 40%, #4b5563 70%, #6b7280 100%);
     @apply bg-clip-text text-transparent;
   }
 
